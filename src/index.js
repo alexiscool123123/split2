@@ -15,7 +15,7 @@ if (rootElement.hasChildNodes()) {
 
 ReactDOM.render(
   <StrictMode>
-    <App />
+    <App/>
   </StrictMode>,
   rootElement
 );

@@ -1,9 +1,9 @@
 import { Allotment, setSashSize } from "allotment";
-import "allotment/dist/style.css";
-import styles from "./App.module.css";
+import  "allotment/dist/style.css";
+import aweButt from "./App.module.css";
 import image from "../src/image.jpg";
-import { AwesomeButton } from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
+import { AwesomeButton, AwesomeButtonProgress } from 'react-awesome-button';
 import React, { useRef } from "react";
 
 import {
@@ -12,35 +12,66 @@ import {
   useControls,
 } from "react-zoom-pan-pinch";
 
-
-const Controls = () => {
+const Controls = (ref) => {
   const { zoomIn, zoomOut, resetTransform, zoomToElement } = useControls();
+  const myStyle = {
+      
 
+      "--button-default-height": "33px",
+      "--button-default-font-size": "16px",
+      "--button-default-border-radius": "10px",
+      "--button-horizontal-padding": "15px",
+      "--button-vertical-padding": "0px",
+      "--button-raise-level": "3px",
+      "--button-hover-pressure": "1.25",
+      "--transform-speed": "0.5s",
+      "--button-primary-color": "#4f4f4f",
+      "--button-primary-color-dark": "hsla(0, 0%, 73%, 0)",
+      "--button-primary-color-light": "#ffffff",
+      "--button-primary-color-hover": "#686868",
+      "--button-primary-color-active": "#4f4f4f",
+  }
   return (
     <div className="tools" >
     <ul>
     <li>
-    <AwesomeButton onPress={() => zoomIn()}><a>Zoom In</a></AwesomeButton>
+    <AwesomeButton style={myStyle} type="primary" onPress={() => zoomIn()}><a>+</a></AwesomeButton>
     </li>
     
      <li>
-     <AwesomeButton onPress={() => zoomOut()}><a>Zoom out</a></AwesomeButton>
+     <AwesomeButton  style={myStyle} type="primary" onPress={() => zoomOut()}><a>-</a></AwesomeButton>
      </li>
  
  <li>
- <AwesomeButton onPress={() => resetTransform()}><a>Reset</a></AwesomeButton>
+ <AwesomeButtonProgress style={myStyle} type="primary" onPress={(event, release) => {
+       resetTransform();
+       release();
+       
+      }}>
+ <a>Reset</a></AwesomeButtonProgress>
      
  </li>
 
+
+
 <li>
-<AwesomeButton onPress={() => zoomToElement("elk",4)}>Press to see trail!</AwesomeButton>
-     
+<AwesomeButtonProgress style={myStyle} type="primary" onPress={(event, release) => {
+       zoomToElement("elk");
+       release();
+      }}>
+ <a>Click To See Trail!</a></AwesomeButtonProgress>
+
 </li>
 
-    </ul>
 
+    </ul>
+    <hr style={{height:2,
+    "border-width":0,
+    "height": 3,
+    "color":"gray",
+    "background-color":"gray"}}></hr>
     </div>
-    
+   
   );
 };
 
@@ -49,24 +80,28 @@ export default function App() {
  
 
   return (
-    <div style={{overflow: "hidden", height: "95vh",width: "100%",borderRadius: 10,margin: "auto",borderColor: "black",borderStyle: "solid", backgroundColor: "#333"}}>
+    <div style={{ overflow: "hidden", height: "95vh",width: "100%",borderRadius: 10,margin: "auto",borderColor: "black",borderStyle: "solid", backgroundColor: "#333"}}>
+    
       <Allotment
+      
       separator = {true}
-
+      
       vertical = {false}
 
       defaultSizes={[300,200]}
       
       >
 
-<Allotment.Pane>
+<Allotment.Pane 
+  maxSize = {800}
+>
  
  <TransformWrapper
        initialScale={1}
        smooth = {true}
        doubleClick={true}
      
-       maxScale={4}
+       maxScale={5}
        
        centerOnInit = {true}
        
@@ -76,7 +111,8 @@ export default function App() {
          <>
        
          
-         <Controls >
+         <Controls>
+          
          </Controls>
 
         <div style = {{ height: '80vh',width:"55vw",borderRadius: 5,
@@ -116,7 +152,7 @@ export default function App() {
       
         <iframe
             src="https://www.google.com/maps/d/u/0/embed?mid=1viS0qWedzVsQEEyvzheAalmEyVMrR5I&ehbc=2E312F&noprof=1"
-            width="99%"
+            width="100%"
             height="100%"
             
           
